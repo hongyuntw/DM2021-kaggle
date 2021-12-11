@@ -18,9 +18,9 @@ import pandas as pd
 logging.set_verbosity_warning()
 ### hyperparams ###
 
-pretrained_model = 'cardiffnlp/twitter-roberta-base-emotion'
-# pretrained_model = 'roberta-base'
-batch_size = 512
+# pretrained_model = 'cardiffnlp/twitter-roberta-base-emotion'
+pretrained_model = 'roberta-large'
+batch_size = 256
 mode = 'test'
 
 
@@ -35,7 +35,7 @@ print("device:", device)
 tokenizer = AutoTokenizer.from_pretrained(pretrained_model)
 
 model_name = pretrained_model.split('/')[-1]
-model_name = 'twitter-roberta-base-emotion-hashtags'
+model_name = 'roberta-large-hashtags-noweight'
 print(model_name)
 model_save_path = f'./outputs_models/{model_name}/model_3.pt'
 print(model_save_path)

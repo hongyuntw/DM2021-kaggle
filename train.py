@@ -17,17 +17,17 @@ from transformers import logging
 logging.set_verbosity_warning()
 ### hyperparams ###
 
-pretrained_model = 'cardiffnlp/twitter-roberta-base-emotion'
-# pretrained_model = 'roberta-base'
+# pretrained_model = 'cardiffnlp/twitter-roberta-base-emotion'
+pretrained_model = 'roberta-large'
 lr = 1e-5
 
-# batch_size = 12
-# val_batch_size = 24
-# accumulation_steps = 4
+batch_size = 4
+val_batch_size = 8
+accumulation_steps = 12
 
-batch_size = 24
-val_batch_size = 48
-accumulation_steps = 2
+# batch_size = 24
+# val_batch_size = 48
+# accumulation_steps = 2
 
 mode = 'train'
 epochs = 4
@@ -113,7 +113,7 @@ for epoch in range(epochs):
             scheduler.step()
         
         batch_acc = compute_acc(logits, labels)
-        acc += batch_acc
+        acc += batch_acc.detach().cpu()
 
         print(f'\r Epoch : {epoch+1}, batch : {i+1}/{totals_batch}, loss : {running_loss / (i+1) :.5f}, acc : {acc/ (i+1) :.5f}' , end='' )
     print(f'Epoch : {epoch+1}, batch : {i+1}/{totals_batch}, loss : {running_loss / (i+1) :.5f}, acc : {acc/ (i+1) :.5f}' , file=log_fp)
